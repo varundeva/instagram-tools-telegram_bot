@@ -2,4 +2,3 @@ instaloader
 Pyrogram
 tgcrypto
 opencv-python
-python3-opencv
