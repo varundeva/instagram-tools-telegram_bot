@@ -1,0 +1,2 @@
+instaloader
+Pyrogram==1.2.0
