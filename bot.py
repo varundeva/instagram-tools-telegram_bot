@@ -1,8 +1,10 @@
 from pyrogram import Client
 import os
 
-# from dotenv import load_dotenv
-# load_dotenv()
+
+if not os.environ.get("API_ID"):
+    from dotenv import load_dotenv
+    load_dotenv()
 
 app = Client(
     "ig_tools",
