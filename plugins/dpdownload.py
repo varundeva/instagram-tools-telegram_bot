@@ -3,7 +3,10 @@ from instaloader import Instaloader, Profile
 from pyrogram.errors import BadRequest
 import re
 import helper as vh
+import os
+
 L = Instaloader()
+L.login(os.environ.get("IG_USERNAME"), os.environ.get("IG_PASSWORD"))
 
 
 @Client.on_message(filters.command(commands="dp", case_sensitive=False))

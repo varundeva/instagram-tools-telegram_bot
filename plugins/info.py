@@ -4,7 +4,9 @@ import re
 from pyrogram.errors import BadRequest
 import helper as vh
 import os
+
 L = Instaloader()
+L.login(os.environ.get("IG_USERNAME"), os.environ.get("IG_PASSWORD"))
 
 
 def acc_type(val):

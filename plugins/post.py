@@ -55,6 +55,7 @@ def sendSidecar(data, context):
 
 
 L = Instaloader()
+L.login(os.environ.get("IG_USERNAME"), os.environ.get("IG_PASSWORD"))
 
 
 @Client.on_message(filters.command("post") | filters.text)
