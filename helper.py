@@ -1,6 +1,7 @@
 import cv2
 import requests
 from pyrogram import Client, client
+import os
 
 
 def getVideoDuration(vidFile):

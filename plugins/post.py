@@ -6,6 +6,12 @@ import os
 import helper as vh
 from . import dpdownload
 from pyrogram.errors import BadRequest
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+
+
+help_keyboard = [[InlineKeyboardButton(
+    "Join Channel", url="https://t.me/helpingbots")]]
+help_reply_markup = InlineKeyboardMarkup(help_keyboard)
 
 
 def sendPhoto(url, message):
@@ -60,8 +66,12 @@ def post(client, message):
             query = message.text
             vh.addToLog(message, client, query)
             if "instagram.com/p/" in query or "instagram.com/reel/" in query or "instagram.com/tv/" in query:
-                splittedUrl = re.split(r'[/?]', query)
-                query = splittedUrl[4]
+                splittedUrl = re.split(r'[/? ]', query)
+                splittedUrl = list(filter(None, splittedUrl))
+                if "post" in splittedUrl:
+                    query = splittedUrl[4]
+                else:
+                    query = splittedUrl[3]
             else:
                 dpdownload.dp(client, message)
             post = Post.from_shortcode(L.context, query)
@@ -75,8 +85,9 @@ def post(client, message):
             if post.typename == 'GraphSidecar':
                 sendSidecar(post.get_sidecar_nodes(start=0, end=-1), message)
 
-        except:
-            pass
+        except Exception as e:
+            print(e)
+            vh.addToLog(message, client, e)
     except BadRequest as e:
         print(e)
         message.reply(
