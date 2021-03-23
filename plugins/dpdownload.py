@@ -6,7 +6,8 @@ import helper as vh
 import os
 
 L = Instaloader()
-L.login(os.environ.get("IG_USERNAME"), os.environ.get("IG_PASSWORD"))
+# L.login(os.environ.get("IG_USERNAME"), os.environ.get("IG_PASSWORD"))
+L.load_session_from_file("freesvofficial")
 
 
 @Client.on_message(filters.command(commands="dp", case_sensitive=False))

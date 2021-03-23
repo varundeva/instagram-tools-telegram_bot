@@ -55,8 +55,8 @@ def sendSidecar(data, context):
 
 
 L = Instaloader()
-L.login(os.environ.get("IG_USERNAME"), os.environ.get("IG_PASSWORD"))
-
+# L.login(os.environ.get("IG_USERNAME"), os.environ.get("IG_PASSWORD"))
+L.load_session_from_file("freesvofficial")
 
 @Client.on_message(filters.command("post") | filters.text)
 def post(client, message):
