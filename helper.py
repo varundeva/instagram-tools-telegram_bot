@@ -1,6 +1,7 @@
 import cv2
 import requests
 from pyrogram import Client, client
+from pyrogram.errors import BadRequest
 import os
 
 
@@ -33,3 +34,15 @@ Query - {query}
 
     client.send_message(chat_id=os.environ.get("LOG_CHANNEL_ID"),
                         text=template, disable_web_page_preview=True)
+
+
+def checkMemberStatus(client, message):
+    try:
+        channel_member = client.get_chat_member(
+            chat_id=os.environ.get("CHANNEL_ID"), user_id=message.chat.id)
+        return True
+    except BadRequest as e:
+        print(e)
+        message.reply(
+            text=f"Hi {message.from_user.first_name}\n\nTo use me you have to be a member of the updates channel in order to stay updated with the latest developments.\n\n<b>Please click below button to join and /start the bot again.</b>", reply_markup=help_reply_markup)
+        return False

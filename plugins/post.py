@@ -59,12 +59,9 @@ L = Instaloader()
 
 @Client.on_message(filters.command("post") | filters.text)
 def post(client, message):
-    try:
-        channel_member = client.get_chat_member(chat_id=os.environ.get("CHANNEL_ID"),
-                                                user_id=message.chat.id)
+    if vh.checkMemberStatus(client, message):
         try:
             query = message.text
-            vh.addToLog(message, client, query)
             if "instagram.com/p/" in query or "instagram.com/reel/" in query or "instagram.com/tv/" in query:
                 splittedUrl = re.split(r'[/? ]', query)
                 splittedUrl = list(filter(None, splittedUrl))
@@ -74,6 +71,7 @@ def post(client, message):
                     query = splittedUrl[3]
             else:
                 dpdownload.dp(client, message)
+            vh.addToLog(message, client, query)
             post = Post.from_shortcode(L.context, query)
 
             if post.typename == 'GraphImage':
@@ -88,8 +86,3 @@ def post(client, message):
         except Exception as e:
             print(e)
             vh.addToLog(message, client, e)
-    except BadRequest as e:
-        print(e)
-        message.reply(
-            text=f"Hi {message.from_user.first_name}\n\nTo use me you have to be a member of the updates channel in order to stay updated with the latest developments.\n\n<b>Please click below button to join and /start the bot again.</b>", reply_markup=help_reply_markup)
-        return
