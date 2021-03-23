@@ -3,6 +3,7 @@ import requests
 from pyrogram import Client, client
 from pyrogram.errors import BadRequest
 import os
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 def getVideoDuration(vidFile):
@@ -34,6 +35,11 @@ Query - {query}
 
     client.send_message(chat_id=os.environ.get("LOG_CHANNEL_ID"),
                         text=template, disable_web_page_preview=True)
+
+
+help_keyboard = [[InlineKeyboardButton(
+    "Join Channel", url="https://t.me/helpingbots")]]
+help_reply_markup = InlineKeyboardMarkup(help_keyboard)
 
 
 def checkMemberStatus(client, message):
