@@ -71,6 +71,7 @@ def post(client, message):
                     query = splittedUrl[3]
             else:
                 dpdownload.dp(client, message)
+                return
             vh.addToLog(message, client, query)
             post = Post.from_shortcode(L.context, query)
 
