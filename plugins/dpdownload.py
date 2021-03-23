@@ -1,7 +1,6 @@
 from pyrogram import Client, filters
 from instaloader import Instaloader, Profile
 from pyrogram.errors import BadRequest
-import os
 import re
 import helper as vh
 L = Instaloader()
@@ -9,14 +8,18 @@ L = Instaloader()
 
 @Client.on_message(filters.command(commands="dp", case_sensitive=False))
 def dp(client, message):
-    if vh.checkMemberStatus(client,message):
+    if vh.checkMemberStatus(client, message):
         # Get username/string from the message
         query = ""
         if message.text[:3] == "/dp":
             query = message.text[3:].lstrip()
         else:
             query = message.text
+
         originalQuery = query
+
+        if message.text[:5] == "/post":
+            query = message.text[6:].lstrip()
 
         # To Check given username starts from '/'
         if query[0] == "/":
@@ -33,6 +36,7 @@ def dp(client, message):
             splittedUrl = re.split(r'[/?]', query)
             query = splittedUrl[3]
         msg = message.reply_text("Please Wait...")
+        print(query)
         try:
             user = Profile.from_username(L.context, query.lstrip())
             caption_msg = f'''Name: {user.full_name}'''
