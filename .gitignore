@@ -13,3 +13,4 @@ __pycache__
 share
 .env
 ig_tools.session
+ig_tool.session
