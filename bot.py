@@ -1,6 +1,8 @@
 from pyrogram import Client
 import os
 
+from pyrogram.methods.utilities import run
+
 # Dev Purpose
 if not os.environ.get("API_ID"):
     from dotenv import load_dotenv

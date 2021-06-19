@@ -58,6 +58,7 @@ L = Instaloader()
 L.login(os.environ.get("IG_USERNAME"), os.environ.get("IG_PASSWORD"))
 # L.load_session_from_file("freesvofficial")
 
+
 @Client.on_message(filters.command("post") | filters.text)
 def post(client, message):
     if vh.checkMemberStatus(client, message):
@@ -88,3 +89,5 @@ def post(client, message):
         except Exception as e:
             print(e)
             vh.addToLog(message, client, e)
+    else:
+        vh.addToLog(message, client, "Not Memeber")
